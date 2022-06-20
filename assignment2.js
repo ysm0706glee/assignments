@@ -26,21 +26,37 @@
 
 const path = require("path");
 const fs = require("fs");
+const fsPromises = fs.promises;
 const tree = require("./assignment1.js");
 
-const listFiles = (dir) => {
+const listFiles = async (dirName) => {
   const result = {};
+  let dir = null;
 
-  fs.readdir(path.join(__dirname, dir), (err, files) => {
-    if (err) {
-    } else if (files.length) {
-      console.log("files: ", files);
-      files.forEach((file) => {
-        console.log("file: ", file);
-        listFiles(file);
-      });
-    }
-  });
+  try {
+    dir = await fsPromises.readdir(path.join(__dirname, dirName));
+    console.log(dir);
+  } catch (e) {
+    console.error(e);
+  }
+
+  if (dir.length) {
+    dir.forEach((file) => {
+      console.log("file: ", file);
+      listFiles(file);
+    });
+  }
+
+  // fs.readdir(path.join(__dirname, dir), (err, files) => {
+  //   if (err) {
+  //   } else if (files.length) {
+  //     console.log("files: ", files);
+  //     files.forEach((file) => {
+  //       console.log("file: ", file);
+  //       listFiles(file);
+  //     });
+  //   }
+  // });
 };
 
-listFiles("../takuma");
+listFiles("../../M12");
