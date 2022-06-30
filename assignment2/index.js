@@ -27,7 +27,7 @@
 const path = require("path");
 const fs = require("fs");
 const fsPromises = fs.promises;
-const tree = require("./assignment1.js");
+const tree = require("./assignment1.js.js");
 
 const listFiles = async (dirName) => {
   const result = {};
